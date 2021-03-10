@@ -1,7 +1,9 @@
 import React from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { fromUnixTime } from 'date-fns'
+import ReactDOM from 'react-dom';
+import TextareaAutosize from 'react-autosize-textarea';
+
 
 export default class NewNoteForm extends React.Component {
     constructor(props) {
@@ -24,14 +26,12 @@ export default class NewNoteForm extends React.Component {
 
     handleChange(event) {
         const value = event.target.value;
-        const creationDate = Date.now();
-        const creationDate2 = creationDate.toString();
-        var result = fromUnixTime(creationDate2);
-        console.log(creationDate2);
+        const creationDate = new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
+        const creationDate2 = creationDate.toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
         this.setState({
             ...this.state,
             [event.target.name]: value,
-            date: creationDate2
+            date: creationDate
         });
     }
 
@@ -56,13 +56,13 @@ export default class NewNoteForm extends React.Component {
                         <Form.Control type="text" name="noteTitle" placeholder={this.titlePlaceholder} value={this.state.noteTitle} onChange={this.handleChange} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control as="textarea" rows={5} name="noteBody" placeholder={this.bodyPlaceholder} value={this.state.noteBody} onChange={this.handleChange} />
+                        <TextareaAutosize className="textbox" as="textarea" name="noteBody" placeholder={this.bodyPlaceholder} value={this.state.noteBody} onChange={this.handleChange} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Add
                     </Button>
                 </Form>
-            </div>
+            </div >
         );
     }
 }

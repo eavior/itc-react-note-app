@@ -15,11 +15,13 @@ class App extends React.Component {
       notes: [],
     }
   }
+
   addNewNote(note) {
     this.setState(prevState => {
       return { notes: [...prevState.notes, note] };
     });
   }
+
   deleteNote(index) {
     const deleteConfirmation = window.confirm("Do you really want to delete this note?");
     if (deleteConfirmation) {
@@ -29,6 +31,7 @@ class App extends React.Component {
     };
 
   }
+
   render() {
     return (
       <Container>
