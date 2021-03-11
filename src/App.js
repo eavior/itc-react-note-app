@@ -32,6 +32,11 @@ class App extends React.Component {
 
   }
 
+  editNote(index) {
+    alert(index);
+
+  }
+
   render() {
     return (
       <Container>
@@ -48,6 +53,7 @@ class App extends React.Component {
           <Col md="auto"><NotesList
             notes={this.state.notes}
             onDeleteNote={(index) => this.deleteNote(index)}
+            onEditNote={(index) => this.editNote(index)}
           /></Col>
         </Row>
       </Container>

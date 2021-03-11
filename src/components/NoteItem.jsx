@@ -12,10 +12,8 @@ class NoteItem extends React.Component {
         this.state = {
             showModal: false,
         }
-
         // const { note } = props;
         // const { id, date, noteTitle, noteBody } = note;
-
     }
 
     activateModal() {
@@ -29,7 +27,6 @@ class NoteItem extends React.Component {
         if (this.state.showModal) this.state.showModal = false; // somehow this does not set the status back to false and therefore the card cannot be clicked more than once....
     }
 
-
     render() {
         return (
             <div style={{ cursor: 'pointer' }} onClick={() => {
@@ -40,6 +37,7 @@ class NoteItem extends React.Component {
                     note={this.props.note}
                     onHideModal={() => this.resetModal()}
                     onDeleteModal={() => this.props.onDelete(this.props.index)}
+                    onEditModal={() => this.props.onEdit(this.props.index)}
 
                 // onDelete={() => props.onDeleteNote(index)}
                 />}
