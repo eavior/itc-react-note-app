@@ -23,7 +23,7 @@ class App extends React.Component {
   }
 
   deleteNote(index) {
-    const deleteConfirmation = window.confirm("Do you really want to delete this note?");
+    const deleteConfirmation = window.confirm("Are you sure you want to delete your note?");
     if (deleteConfirmation) {
       this.setState(prevState => {
         return { notes: [...prevState.notes.slice(0, index), ...prevState.notes.slice(index + 1)] }

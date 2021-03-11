@@ -21,15 +21,12 @@ class NoteItem extends React.Component {
     activateModal() {
         // this.setState((state) => { return { showModal: state.showModal }; });
         this.setState({ showModal: true });
-
     }
-
-
 
     resetModal() {
         // this.setState((state) => { return { showModal: state.showModal }; });
         this.setState({ showModal: false });
-        alert("done")
+        if (this.state.showModal) this.state.showModal = false; // somehow this does not set the status back to false and therefore the card cannot be clicked more than once....
     }
 
 
