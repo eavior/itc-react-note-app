@@ -37,14 +37,15 @@ class NoteItem extends React.Component {
                     note={this.props.note}
                     onHideModal={() => this.resetModal()}
                     onDeleteModal={() => this.props.onDelete(this.props.index)}
-                    onEditModal={() => this.props.onEdit(this.props.index)}
+                    onEditModal={(note) => this.props.onEditNote(this.props.note)}
+                    onEditNote={(editedNote) => this.props.onEditNote(editedNote)}
 
                 // onDelete={() => props.onDeleteNote(index)}
                 />}
 
 
 
-                <Card>
+                <Card mt={4}>
                     <Card.Body>
                         {this.props.note.noteTitle && <Card.Title>{this.props.note.noteTitle}</Card.Title>}
                         <Card.Text>{this.props.note.noteBody}</Card.Text>

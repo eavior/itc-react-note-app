@@ -38,11 +38,13 @@
 }
 
 input, textarea {
-  width: 200px;
+  width: 300px;
 }
 
 textarea {
-  height: 200px;
+  height: 100px;
+  appearance: auto;
+  
 }
 
 .textbox {
@@ -58,8 +60,12 @@ textarea {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-input:focus {
-  border: 3px solid #495057;
+textarea:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
 }
 
 

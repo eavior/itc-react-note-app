@@ -1,6 +1,7 @@
 import Modal from 'react-bootstrap/Modal'
 import React, { render, useState } from "react";
 import Button from 'react-bootstrap/Button'
+import TextareaAutosize from 'react-autosize-textarea';
 
 
 class Example extends React.Component {
@@ -12,6 +13,7 @@ class Example extends React.Component {
             noteTitle: "",
             noteBody: "",
             value: "",
+            changedDate: "",
         };
 
         // const { note } = props;
@@ -29,9 +31,18 @@ class Example extends React.Component {
 
     editForm() {
         this.setState(prevState => {
-            return { edit: true };
+            return { edit: true, noteTitle: this.props.note.noteTitle, noteBody: this.props.note.noteBody };
         });
     }
+
+
+    handleEditSubmit(event) {
+        event.preventDefault();
+        const editedNote = { id: this.props.note.id, date: this.props.note.date, changedDate: this.state.changedDate, noteTitle: this.state.noteTitle, noteBody: this.state.noteBody };
+        this.props.onEditNote(editedNote);
+
+    }
+
 
     handleSave() {
         this.setState(prevState => {
@@ -50,12 +61,16 @@ class Example extends React.Component {
 
     handleChange(event) {
         const value = event.target.value;
+        const changedDate = new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
         this.setState({
             ...this.state,
             [event.target.name]: value,
+            changedDate: changedDate
         });
-        console.log(this.state.noteBody)
     }
+
+
+
 
 
     handleFirstNameChange = e => {
@@ -83,12 +98,10 @@ class Example extends React.Component {
                     <Modal.Body>{this.props.note.noteBody}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => this.handleClose()}>
-                            Close
-          </Button>
-                        <Button variant="primary" onClick={() => this.handleClose()}>
-                            Save Changes
-          </Button><Button variant="outline-danger" onClick={this.props.onDeleteModal}>Delete</Button>
+                        <Button variant="secondary" onClick={() => this.handleClose()}>Close</Button>
+                        <Button variant="primary" onClick={() => this.handleClose()}>Save Changes</Button>
+                        <Button variant="outline-danger" onClick={this.props.onDeleteModal}>Delete</Button>
+                        <Button variant="outline-danger" onClick={() => this.editForm()}>Edit</Button>
                     </Modal.Footer>
                 </Modal>;
         }
@@ -113,13 +126,26 @@ class Example extends React.Component {
             elementToRender =
                 <Modal show={this.state.show} onHide={() => this.handleClose()}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.props.note.noteTitle}</Modal.Title>
+                        <Modal.Title>
+
+                            <div className="static-modal">
+                                <TextareaAutosize
+                                    value={this.state.noteTitle}
+                                    name="noteTitle"
+                                    type="textarea"
+                                    className="form-control"
+                                    onChange={this.handleChange}
+                                />
+                            </div>
+
+
+                        </Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
 
                         <div className="static-modal">
-                            <input
+                            <TextareaAutosize
                                 value={this.state.noteBody}
                                 name="noteBody"
                                 type="textarea"
@@ -135,7 +161,7 @@ class Example extends React.Component {
                         <Button variant="secondary" onClick={() => this.handleClose()}>
                             Close
           </Button>
-                        <Button variant="primary" onClick={this.props.onEditModal}>
+                        <Button variant="primary" onClick={(event) => this.handleEditSubmit(event)}>
                             Save Changes
           </Button><Button variant="outline-danger" onClick={this.props.onDeleteModal}>Delete</Button>
                     </Modal.Footer>

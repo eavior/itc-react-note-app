@@ -10,7 +10,7 @@ function NotesList(props) {
                     key={note.id}
                     note={note}
                     onDelete={() => props.onDeleteNote(index)}
-                    onEdit={() => props.onEditNote(index)}
+                    onEditNote={(editedNote) => props.onEditNote(editedNote)}
                 />
             )}
         </CardDeck>

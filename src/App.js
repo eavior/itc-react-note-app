@@ -32,8 +32,25 @@ class App extends React.Component {
 
   }
 
-  editNote(index) {
-    alert(index);
+  addEditedNote(editedNote) {
+    console.log(editedNote);
+    alert(JSON.stringify(editedNote));
+    console.log(editedNote.id)
+    const noteId = editedNote.id;
+    let objIndex = this.state.notes.findIndex((obj => obj.id == noteId));
+
+    //Log object to Console.
+    console.log("Before update: ", this.state.notes[objIndex])
+
+    //Update object's name property.
+    this.state.notes[objIndex].changedDate = editedNote.changedDate;
+    this.state.notes[objIndex].noteTitle = editedNote.noteTitle;
+    this.state.notes[objIndex].noteBody = editedNote.noteBody;
+
+
+    //Log object to console again.
+    console.log("After update: ", this.state.notes[objIndex])
+
 
   }
 
@@ -53,7 +70,7 @@ class App extends React.Component {
           <Col md="auto"><NotesList
             notes={this.state.notes}
             onDeleteNote={(index) => this.deleteNote(index)}
-            onEditNote={(index) => this.editNote(index)}
+            onEditNote={(editedNote) => this.addEditedNote(editedNote)}
           /></Col>
         </Row>
       </Container>
