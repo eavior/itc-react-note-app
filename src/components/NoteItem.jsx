@@ -3,8 +3,8 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import Example from './Modal'
-
+import NoteModal from './Modal'
+import { MdDelete } from 'react-icons/md';
 
 class NoteItem extends React.Component {
     constructor(props) {
@@ -12,84 +12,50 @@ class NoteItem extends React.Component {
         this.state = {
             showModal: false,
         }
-        // const { note } = props;
-        // const { id, date, noteTitle, noteBody } = note;
     }
 
     activateModal() {
-        // this.setState((state) => { return { showModal: state.showModal }; });
         this.setState({ showModal: true });
     }
 
     resetModal() {
-        // this.setState((state) => { return { showModal: state.showModal }; });
+        this.setState(prevState => {
+            return { showModal: false };
+        });   // somehow this and the next line do not set the status back to false and therefore the card cannot be clicked more than once....
         this.setState({ showModal: false });
-        if (this.state.showModal) this.state.showModal = false; // somehow this does not set the status back to false and therefore the card cannot be clicked more than once....
     }
 
     render() {
         return (
-            <div style={{ cursor: 'pointer' }} onClick={() => {
+            <div className="cardHolder" onClick={() => {
                 this.activateModal()
             }}>
-                {this.state.showModal && <Example
+                {this.state.showModal && <NoteModal
                     key={this.props.note.id}
                     note={this.props.note}
                     onHideModal={() => this.resetModal()}
                     onDeleteModal={() => this.props.onDelete(this.props.index)}
                     onEditModal={(note) => this.props.onEditNote(this.props.note)}
                     onEditNote={(editedNote) => this.props.onEditNote(editedNote)}
-
-                // onDelete={() => props.onDeleteNote(index)}
                 />}
-
-
-
-                <Card mt={4}>
+                <Card className="card">
                     <Card.Body>
                         {this.props.note.noteTitle && <Card.Title>{this.props.note.noteTitle}</Card.Title>}
                         <Card.Text>{this.props.note.noteBody}</Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <Row>
-                            <Col className="text-left"><small className="text-muted">{this.props.note.date}</small></Col>
-                            <Col className="text-right"><Button variant="outline-danger" onClick={this.props.onDelete}>Delete</Button></Col>
-
+                        <Row className="cardFooter">
+                            <Col sm={9}>
+                                <Row className="text-left"><small className="text-muted">Created: {this.props.note.date}</small></Row>
+                                {this.props.note.changedDate && <Row className="text-left"><small className="text-muted">Last edit on: {this.props.note.changedDate}</small></Row>}
+                            </Col>
+                            <Col sm={2} className="text-right"><Button variant="outline-danger" onClick={this.props.onDelete}><MdDelete className="delete" /></Button></Col>
                         </Row>
                     </Card.Footer>
-                </Card>
+                </Card >
             </div >
         )
     }
 }
-
-// function NoteItem(props) {
-//     // console.log("props Note 1" + JSON.stringify(props));
-//     const { note } = props;
-//     const { id, date, noteTitle, noteBody } = note;
-
-
-//     return (
-//         <div style={{ cursor: 'pointer' }} onClick={(event) => Example(note)}>
-//             <Card>
-//                 <Card.Body>
-//                     {noteTitle && <Card.Title>{noteTitle}</Card.Title>}
-//                     <Card.Text>{noteBody}</Card.Text>
-//                 </Card.Body>
-//                 <Card.Footer>
-//                     <Row>
-//                         <Col className="text-left"><small className="text-muted">{date}</small></Col>
-//                         <Col className="text-right"><Button variant="outline-danger" onClick={props.onDelete}>Delete</Button></Col>
-//                     </Row>
-//                 </Card.Footer>
-//             </Card>
-//             {/* <Example
-//                 key={note.id}
-//                 note={note}
-//             // onDelete={() => props.onDeleteNote(index)}
-//             /> */}
-//         </div>
-//     )
-// }
 
 export default NoteItem;

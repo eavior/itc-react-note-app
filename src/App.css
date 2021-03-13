@@ -44,7 +44,6 @@ input, textarea {
 textarea {
   height: 100px;
   appearance: auto;
-  
 }
 
 .textbox {
@@ -68,4 +67,17 @@ textarea:focus {
     box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
 }
 
+.delete {
+  height: 20px;
+  width: 20px
+}
 
+.card, .cardholder {
+    width: 21rem;
+    cursor: 'pointer';
+    margin-top: 30px;
+}
+
+.cardFooter {
+      padding: .75rem;
+}

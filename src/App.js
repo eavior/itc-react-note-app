@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -29,29 +28,19 @@ class App extends React.Component {
         return { notes: [...prevState.notes.slice(0, index), ...prevState.notes.slice(index + 1)] }
       });
     };
-
   }
 
   addEditedNote(editedNote) {
-    console.log(editedNote);
-    alert(JSON.stringify(editedNote));
-    console.log(editedNote.id)
-    const noteId = editedNote.id;
-    let objIndex = this.state.notes.findIndex((obj => obj.id == noteId));
-
-    //Log object to Console.
-    console.log("Before update: ", this.state.notes[objIndex])
-
-    //Update object's name property.
-    this.state.notes[objIndex].changedDate = editedNote.changedDate;
-    this.state.notes[objIndex].noteTitle = editedNote.noteTitle;
-    this.state.notes[objIndex].noteBody = editedNote.noteBody;
-
-
-    //Log object to console again.
-    console.log("After update: ", this.state.notes[objIndex])
-
-
+    const objIndex = this.state.notes.findIndex((obj => obj.id === editedNote.id));
+    this.setState(prevState => {
+      return {
+        notes: [
+          ...prevState.notes.slice(0, objIndex),
+          editedNote,
+          ...prevState.notes.slice(objIndex + 1),
+        ]
+      }
+    });
   }
 
   render() {
@@ -59,20 +48,17 @@ class App extends React.Component {
       <Container>
         <br />
         <Row className="justify-content-md-center">
-          <Col md="auto">        <NewNoteForm
-            onAddNote={(note) => this.addNewNote(note)}
-          /></Col>
+          <Col md="auto"><NewNoteForm onAddNote={(note) => this.addNewNote(note)} /></Col>
         </Row>
-        <Row className="justify-content-md-center">
-          <br /><br />
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col md="auto"><NotesList
+        <br />
+        <Container>
+          <NotesList
+            className="justify-content-md-center"
             notes={this.state.notes}
             onDeleteNote={(index) => this.deleteNote(index)}
             onEditNote={(editedNote) => this.addEditedNote(editedNote)}
-          /></Col>
-        </Row>
+          />
+        </Container>
       </Container>
     )
   }

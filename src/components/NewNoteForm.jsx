@@ -26,7 +26,6 @@ export default class NewNoteForm extends React.Component {
     handleChange(event) {
         const value = event.target.value;
         const creationDate = new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
-        const creationDate2 = creationDate.toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
         this.setState({
             ...this.state,
             [event.target.name]: value,
