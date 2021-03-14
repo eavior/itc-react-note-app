@@ -101,7 +101,7 @@ class NoteModal extends React.Component {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="outline-success" onClick={(event) => this.handleEditSubmit(event)}>Save Changes & close</Button>
+                        <Button variant="outline-success" onClick={(event) => this.handleEditSubmit(event)}>Save changes & close</Button>
                         <Button variant="outline-danger" onClick={this.props.onDeleteModal}>Delete</Button>
                     </Modal.Footer>
                 </Modal>;

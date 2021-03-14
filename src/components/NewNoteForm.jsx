@@ -25,7 +25,7 @@ export default class NewNoteForm extends React.Component {
 
     handleChange(event) {
         const value = event.target.value;
-        const creationDate = new Date(Date.now()).toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
+        const creationDate = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Jerusalem' });;
         this.setState({
             ...this.state,
             [event.target.name]: value,
@@ -35,6 +35,7 @@ export default class NewNoteForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        if (!this.state.noteBody) return;
         const note = { id: Date.now(), date: this.state.date, noteTitle: this.state.noteTitle, noteBody: this.state.noteBody };
         this.props.onAddNote(note);
         this.setState({

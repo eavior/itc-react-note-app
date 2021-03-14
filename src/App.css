@@ -68,16 +68,19 @@ textarea:focus {
 }
 
 .delete {
-  height: 20px;
-  width: 20px
+  height: 22px;
+  width: 22px
 }
 
-.card, .cardholder {
+.card {
     width: 21rem;
-    cursor: 'pointer';
     margin-top: 30px;
 }
 
+.cardHolder {
+    cursor: 'pointer';
+}
+
 .cardFooter {
-      padding: .75rem;
+      padding-left: .75rem;
 }

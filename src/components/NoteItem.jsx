@@ -21,19 +21,20 @@ class NoteItem extends React.Component {
     resetModal() {
         this.setState(prevState => {
             return { showModal: false };
-        });   // somehow this and the next line do not set the status back to false and therefore the card cannot be clicked more than once....
+        });   // somehow this and the next line do not set the status back to false and therefore the card cannot be clicked more than once.... 
         this.setState({ showModal: false });
     }
 
     render() {
         return (
-            <div className="cardHolder" onClick={() => {
+            <div style={{ cursor: 'pointer' }} onClick={() => {
                 this.activateModal()
             }}>
                 {this.state.showModal && <NoteModal
                     key={this.props.note.id}
                     note={this.props.note}
                     onHideModal={() => this.resetModal()}
+                    onRequestClose={() => this.setState({ showModal: false })}
                     onDeleteModal={() => this.props.onDelete(this.props.index)}
                     onEditModal={(note) => this.props.onEditNote(this.props.note)}
                     onEditNote={(editedNote) => this.props.onEditNote(editedNote)}
