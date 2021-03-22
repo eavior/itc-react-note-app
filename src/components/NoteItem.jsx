@@ -26,31 +26,32 @@ class NoteItem extends React.Component {
     }
 
     render() {
+        const { note, onDelete, onEditNote, index } = this.props;
         return (
             <div style={{ cursor: 'pointer' }} onClick={() => {
                 this.activateModal()
             }}>
                 {this.state.showModal && <NoteModal
-                    key={this.props.note.id}
-                    note={this.props.note}
+                    key={note.id}
+                    note={note}
                     onHideModal={() => this.resetModal()}
                     onRequestClose={() => this.setState({ showModal: false })}
-                    onDeleteModal={() => this.props.onDelete(this.props.index)}
-                    onEditModal={(note) => this.props.onEditNote(this.props.note)}
-                    onEditNote={(editedNote) => this.props.onEditNote(editedNote)}
+                    onDeleteModal={() => onDelete(index)}
+                    onEditModal={(note) => onEditNote(note)}
+                    onEditNote={(editedNote) => onEditNote(editedNote)}
                 />}
                 <Card className="card">
                     <Card.Body>
-                        {this.props.note.noteTitle && <Card.Title>{this.props.note.noteTitle}</Card.Title>}
-                        <Card.Text>{this.props.note.noteBody}</Card.Text>
+                        {note.noteTitle && <Card.Title>{note.noteTitle}</Card.Title>}
+                        <Card.Text>{note.noteBody}</Card.Text>
                     </Card.Body>
                     <Card.Footer>
                         <Row className="cardFooter">
                             <Col sm={9}>
-                                <Row className="text-left"><small className="text-muted">Created: {this.props.note.date}</small></Row>
-                                {this.props.note.changedDate && <Row className="text-left"><small className="text-muted">Last edit on: {this.props.note.changedDate}</small></Row>}
+                                <Row className="text-left"><small className="text-muted">Created: {note.date}</small></Row>
+                                {note.changedDate && <Row className="text-left"><small className="text-muted">Last edit on: {note.changedDate}</small></Row>}
                             </Col>
-                            <Col sm={2} className="text-right"><Button variant="outline-danger" onClick={this.props.onDelete}><MdDelete className="delete" /></Button></Col>
+                            <Col sm={2} className="text-right"><Button variant="outline-danger" onClick={onDelete}><MdDelete className="delete" /></Button></Col>
                         </Row>
                     </Card.Footer>
                 </Card >

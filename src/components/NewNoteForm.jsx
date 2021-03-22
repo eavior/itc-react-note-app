@@ -18,9 +18,6 @@ export default class NewNoteForm extends React.Component {
         this.note = {};
         this.titlePlaceholder = 'Note title (optional)';
         this.bodyPlaceholder = 'Enter a new note';
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -49,13 +46,13 @@ export default class NewNoteForm extends React.Component {
     render() {
         return (
             <div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={(event) => this.handleSubmit(event)}>
                     <Form.Group>
                         <Form.Label>Add a new note</Form.Label>
-                        <Form.Control type="text" name="noteTitle" placeholder={this.titlePlaceholder} value={this.state.noteTitle} onChange={this.handleChange} />
+                        <Form.Control type="text" name="noteTitle" placeholder={this.titlePlaceholder} value={this.state.noteTitle} onChange={(event) => this.handleChange(event)} />
                     </Form.Group>
                     <Form.Group>
-                        <TextareaAutosize className="textbox" as="textarea" name="noteBody" placeholder={this.bodyPlaceholder} value={this.state.noteBody} onChange={this.handleChange} />
+                        <TextareaAutosize className="textbox" as="textarea" name="noteBody" placeholder={this.bodyPlaceholder} value={this.state.noteBody} onChange={(event) => this.handleChange(event)} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Add
