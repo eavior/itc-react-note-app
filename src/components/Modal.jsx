@@ -26,6 +26,7 @@ class NoteModal extends React.Component {
         });
     }
 
+
     handleEditSubmit(event) {
         if (!this.state.noteBody) return;
         const { note, onEditNote } = this.props;
@@ -41,6 +42,8 @@ class NoteModal extends React.Component {
         });
         this.props.onHideModal();
     }
+
+
 
     handleChange(event) {
         const value = event.target.value;

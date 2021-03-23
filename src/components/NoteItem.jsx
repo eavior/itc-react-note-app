@@ -16,24 +16,30 @@ class NoteItem extends React.Component {
 
     activateModal() {
         this.setState({ showModal: true });
+
     }
 
     resetModal() {
-        this.setState(prevState => {
-            return { showModal: false };
-        });   // somehow this and the next line do not set the status back to false and therefore the card cannot be clicked more than once.... 
-        this.setState({ showModal: false });
+        // this.setState(prevState => {
+        //     return { showModal: false };
+        // });   // somehow this and the next line do not set the status back to false and therefore the card cannot be clicked more than once.... 
+
+    }
+
+    componentWillChange() {
+        this.setState({ showModal: this.props.show });
     }
 
     render() {
         const { note, onDelete, onEditNote, index } = this.props;
         return (
-            <div style={{ cursor: 'pointer' }} onClick={() => {
+            <div style={{ cursor: 'pointer' }} type="reset" onClick={() => {
                 this.activateModal()
             }}>
                 {this.state.showModal && <NoteModal
                     key={note.id}
                     note={note}
+                    show={this.state.showModal}
                     onHideModal={() => this.resetModal()}
                     onRequestClose={() => this.setState({ showModal: false })}
                     onDeleteModal={() => onDelete(index)}
