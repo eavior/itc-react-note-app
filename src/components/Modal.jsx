@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import TextareaAutosize from 'react-autosize-textarea';
 
-// Check
+// Check modal
 
 class NoteModal extends React.Component {
   constructor(props) {
